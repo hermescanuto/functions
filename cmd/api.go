@@ -23,6 +23,12 @@ func hello(c echo.Context) error {
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
+	e.Use(middleware.Recover()) // Recover
+	// CORS
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
+	}))
 	e.GET("/api/hello", hello)
 	e.Logger.Fatal(e.Start(get_port()))
 }
