@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func get_port() string {
@@ -21,6 +22,7 @@ func hello(c echo.Context) error {
 
 func main() {
 	e := echo.New()
+	e.Use(middleware.Logger())
 	e.GET("/api/hello", hello)
 	e.Logger.Fatal(e.Start(get_port()))
 }
