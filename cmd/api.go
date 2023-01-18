@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
@@ -22,7 +23,10 @@ func hello(c echo.Context) error {
 
 func main() {
 	e := echo.New()
-	e.Use(middleware.Logger())
+	e.Use(middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) {
+		fmt.Print("Body:", string(reqBody), "\n")
+		fmt.Print("Response:", string(resBody), "\n")
+	}))
 	e.Use(middleware.Recover()) // Recover
 	// CORS
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
