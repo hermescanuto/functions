@@ -24,6 +24,12 @@ To run
 go build cmd/api.go && func start
 ```
 
+or 
+
+```bash
+make run
+```
+
 To run 
 
 ```bash
